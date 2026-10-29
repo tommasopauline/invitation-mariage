@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f3eb">
+  <meta name="description" content="L'invitation au mariage de Tommaso et Pauline, le 15 mai 2027 à la Cascina Lago Scuro.">
+  <title>Notre invitation · Tommaso & Pauline · 15 mai 2027</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fffdf8;
+      --ground: #f7f3eb;
+      --copper: #af6849;
+      --copper-dark: #85513b;
+      --sage: #889477;
+      --muted: #877a6f;
+      --card-size: min(88vw, 420px, max(252px, (100svh - 244px) / 2));
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { min-height: 100%; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      color: #5c5049;
+      background:
+        radial-gradient(ellipse at 15% 4%, #fffefa 0, transparent 38%),
+        radial-gradient(ellipse at 85% 90%, #f3ebdc 0, transparent 46%),
+        var(--ground);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .12;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.64' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.17'/%3E%3C/svg%3E");
+    }
+    .page { min-height: 100svh; display: flex; flex-direction: column; align-items: center; gap: 0; padding: 21px 16px 24px; }
+    header { text-align: center; position: relative; z-index: 2; }
+    .eyebrow { color: var(--sage); font-size: 10px; letter-spacing: .19em; font-weight: 650; text-transform: uppercase; }
+    h1 { font: normal clamp(23px, 4.6vw, 34px)/1.1 Georgia, "Times New Roman", serif; color: var(--copper-dark); margin: 8px 0 5px; letter-spacing: -.025em; }
+    h1 span { font-style: italic; color: var(--sage); font-size: .78em; }
+    .instruction { margin: 4px 0 10px; min-height: 1.4em; color: var(--muted); font-size: 12px; text-align: center; letter-spacing: .015em; }
+    .stage {
+      width: var(--card-size);
+      height: calc(var(--card-size) * 2);
+      flex: 0 0 auto;
+      perspective: 1700px;
+      perspective-origin: 50% 48%;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      cursor: pointer;
+      touch-action: pan-y;
+    }
+    .stage:focus-visible { outline: 2px solid var(--copper); outline-offset: 6px; border-radius: 6px; }
+    .card-model {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      transform: translateY(calc(var(--card-size) * -0.5)) rotateY(0deg);
+      transition: transform 920ms cubic-bezier(.24, .75, .18, 1);
+    }
+    .stage[data-view="open"] .card-model { transform: translateY(0) rotateY(0deg); }
+    .stage[data-view="back"] .card-model { transform: translateY(calc(var(--card-size) * -0.5)) rotateY(180deg); }
+    .base, .flap { width: 100%; height: var(--card-size); position: absolute; top: var(--card-size); left: 0; transform-style: preserve-3d; }
+    .base { z-index: 1; }
+    .flap {
+      z-index: 2;
+      transform-origin: center top;
+      transform: translateZ(3px) rotateX(0deg);
+      transition: transform 1080ms cubic-bezier(.22, .74, .21, 1);
+    }
+    .stage[data-view="open"] .flap { transform: translateZ(3px) rotateX(180deg); }
+    .face {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--paper);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 1px;
+      box-shadow: 0 5px 18px rgba(83, 65, 49, .09), 0 18px 44px rgba(83, 65, 49, .095);
+    }
+    .front { transform: translateZ(.2px); }
+    .inside-upper { transform: rotateX(180deg) translateZ(.2px); }
+    .inside-lower { transform: translateZ(0px); }
+    .reverse { transform: rotateY(180deg) translateZ(1px); }
+    .face > img { position: absolute; inset: 0; display:block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+    .face .spread { width: 100%; height: 200%; max-width: none; }
+    .face .spread.bottom { top: -100%; }
+    .flap .front::after {
+      content: ""; position:absolute; inset: 0;
+      pointer-events:none;
+      box-shadow: inset 0 -1px 1px rgba(107,83,58,.08);
+    }
+    .controls { display:flex; flex-wrap:wrap; justify-content: center; align-items:center; gap:8px; margin-top: 8px; width:min(100%, 530px); position:relative; z-index:3; }
+    button, a.pill {
+      font: inherit;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      text-decoration: none;
+      min-height: 41px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 640;
+      letter-spacing: .012em;
+      transition: background 200ms ease, transform 200ms ease, border-color 200ms ease;
+    }
+    button:active, a.pill:active { transform: scale(.98); }
+    button:focus-visible, a.pill:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
+    .primary { background: var(--copper); color: #fff; box-shadow: 0 4px 10px rgba(143, 89, 67, .12); }
+    .primary:hover { background: var(--copper-dark); }
+    .secondary { color: var(--copper-dark); border-color: #d9c6b6; background: rgba(255,255,255,.55); }
+    .secondary:hover { background: #fffaf2; }
+    .subtle { background: transparent; color: var(--muted); border-color: transparent; }
+    .subtle:hover { background: rgba(255,255,255,.55); }
+    .links { width:min(100%, 520px); display:flex; justify-content:center; flex-wrap:wrap; gap: 9px; margin-top:12px; }
+    .links[hidden] { display:none; }
+    .links a { font-size:12px; color: #738576; text-underline-offset: 3px; padding:5px; }
+    .footnote { padding-top: 10px; font-size:10px; color:#968b7e; letter-spacing: .025em; text-align:center; }
+    dialog {
+      width: min(94vw, 730px);
+      max-width: 94vw;
+      max-height: 92dvh;
+      margin: auto;
+      padding: 0;
+      border: 0;
+      border-radius: 12px;
+      background: #fcfaf6;
+      color: #5c5049;
+      box-shadow: 0 16px 90px rgba(47,32,19,.3);
+    }
+    dialog::backdrop { background: rgba(47,39,31,.7); backdrop-filter: blur(5px); }
+    .dialog-bar { position:sticky; top:0; z-index:2; display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid #eae1d7; background:rgba(253,251,247,.97); }
+    .dialog-bar strong { font-size:13px; font-weight:600; color:var(--copper-dark); }
+    .dialog-bar button { min-height:34px; padding:6px 12px; background:#eee8df; color:#6f5d4e; border:0; }
+    .zoom-area { display:flex; justify-content:center; align-items:flex-start; padding: 12px; }
+    .zoom-area img { display:block; width:100%; height:auto; max-width:660px; box-shadow:0 5px 20px rgba(45,27,16,.09); }
+    @media (max-width: 540px) {
+      .page {padding: 16px 12px 20px;}
+      h1 {margin-top:7px;}
+      .eyebrow {font-size:9px;}
+      .instruction { margin: 3px 0 8px; font-size:11px; }
+      .controls { gap: 5px; }
+      button {padding:9px 13px; min-height:39px; font-size:11px;}
+      .footnote {font-size:9px;}
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">15 mai 2027 · Stagno Lombardo</div>
+      <h1>Tommaso <span>&amp;</span> Pauline</h1>
+    </header>
+    <p class="instruction" id="instruction">Touchez l'invitation pour l'ouvrir de bas en haut</p>
+
+    <section class="stage" data-view="closed" id="stage" tabindex="0" role="button" aria-label="Ouvrir l'invitation">
+      <div class="card-model">
+        <div class="base">
+          <div class="face inside-lower" aria-hidden="true"><img class="spread bottom" data-asset="inside" alt=""></div>
+          <div class="face reverse" aria-hidden="true"><img data-asset="back" alt=""></div>
+        </div>
+        <div class="flap">
+          <div class="face front" aria-hidden="true"><img data-asset="cover" alt=""></div>
+          <div class="face inside-upper" aria-hidden="true"><img class="spread" data-asset="inside" alt=""></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button type="button" class="primary" id="mainAction"><span id="mainLabel">Ouvrir l'invitation</span><span aria-hidden="true" id="mainIcon">↗</span></button>
+      <button type="button" class="secondary" id="reverseAction">Voir le verso <span aria-hidden="true">↻</span></button>
+      <button type="button" class="subtle" id="zoomAction" aria-label="Agrandir le visuel affiché">Agrandir <span aria-hidden="true">⤢</span></button>
+    </div>
+    <nav class="links" id="links" aria-label="Liens du mariage" hidden>
+      <a href="https://withjoy.com/tommaso-pauline-05-2027/rsvp" target="_blank" rel="noopener noreferrer">Confirmer sa présence ↗</a>
+      <a href="https://withjoy.com/tommaso-pauline-05-2027" target="_blank" rel="noopener noreferrer">Informations pratiques ↗</a>
+    </nav>
+    <div class="footnote">Une invitation à ouvrir, refermer et retourner ♥</div>
+  </main>
+
+  <dialog id="zoomDialog" aria-label="Voir l'invitation en grand">
+    <div class="dialog-bar"><strong id="zoomTitle">Invitation</strong><button type="button" id="closeZoom">Fermer ✕</button></div>
+    <div class="zoom-area"><img id="zoomImage" alt="Invitation de mariage de Tommaso et Pauline"></div>
+  </dialog>
+
+  <script>
+    const art = {"cover": "assets/cover.webp", "inside": "assets/inside.webp", "back": "assets/back.webp"};
+    const stage = document.getElementById('stage');
+    const instruction = document.getElementById('instruction');
+    const mainAction = document.getElementById('mainAction');
+    const mainLabel = document.getElementById('mainLabel');
+    const mainIcon = document.getElementById('mainIcon');
+    const reverseAction = document.getElementById('reverseAction');
+    const links = document.getElementById('links');
+    const dialog = document.getElementById('zoomDialog');
+    const zoomImage = document.getElementById('zoomImage');
+    const zoomTitle = document.getElementById('zoomTitle');
+    let view = 'closed';
+    let locked = false;
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const delay = reduceMotion ? 15 : 1040;
+
+    document.querySelectorAll('img[data-asset]').forEach(img => {img.src = art[img.dataset.asset];});
+    const labels = {
+      closed: {instruction:"Touchez l'invitation pour l'ouvrir de bas en haut", main:'Ouvrir l\'invitation', icon:'↗', reverse:'Voir le verso ↻', accessible:'Ouvrir l\'invitation'},
+      open: {instruction:"L'intérieur de votre invitation — deux volets dépliés", main:'Refermer', icon:'↘', reverse:'Voir le verso ↻', accessible:'Refermer l\'invitation'},
+      back: {instruction:"Le verso — retrouvez tous les liens utiles", main:'Ouvrir l\'invitation', icon:'↗', reverse:'Voir la couverture ↶', accessible:'Revenir à la couverture'}
+    };
+    function setView(next) {
+      view = next;
+      stage.dataset.view = next;
+      const l = labels[next];
+      instruction.textContent = l.instruction;
+      mainLabel.textContent = l.main;
+      mainIcon.textContent = l.icon;
+      reverseAction.textContent = l.reverse;
+      stage.setAttribute('aria-label', l.accessible);
+      links.hidden = next !== 'back';
+    }
+    function toOpen() {
+      if(locked) return;
+      if(view === 'open') {setView('closed');return;}
+      if(view === 'back') {
+        locked = true;
+        setView('closed');
+        setTimeout(()=> {setView('open');locked = false;}, delay);
+        return;
+      }
+      setView('open');
+    }
+    function toReverse() {
+      if(locked) return;
+      if(view === 'open') {
+        locked = true;
+        setView('closed');
+        setTimeout(()=> {setView('back');locked = false;}, delay);
+      } else setView(view === 'back' ? 'closed' : 'back');
+    }
+    stage.addEventListener('click', () => {
+      if(view === 'back') toReverse();
+      else toOpen();
+    });
+    stage.addEventListener('keydown', e=> {
+      if(e.key === 'Enter' || e.key === ' ') {e.preventDefault();if(view === 'back') toReverse(); else toOpen();}
+    });
+    mainAction.addEventListener('click', toOpen);
+    reverseAction.addEventListener('click', toReverse);
+    document.getElementById('zoomAction').addEventListener('click', ()=> {
+      const key = view === 'closed' ? 'cover' : view === 'open' ? 'inside' : 'back';
+      zoomImage.src = art[key];
+      zoomTitle.textContent = view === 'closed' ? 'La couverture' : view === 'open' ? 'Les deux pages intérieures' : 'Le verso';
+      dialog.showModal();
+    });
+    document.getElementById('closeZoom').addEventListener('click', ()=> dialog.close());
+    dialog.addEventListener('click', e=> {if(e.target === dialog) dialog.close();});
+  </script>
+</body>
+</html>
